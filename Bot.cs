@@ -79,8 +79,7 @@ namespace StarcoreDiscordBot
             Data.Load();
 
             Utils.Log("Logging in...");
-            var token = "ODE5MzYxNzc1MzUwNDQ4MTU5.YElgHg.ohRLyV1k_-Uhx3Gz3QbmNlTmC9s";
-            await Client.LoginAsync(TokenType.Bot, token);
+            await Client.LoginAsync(TokenType.Bot, Config.Instance.Token);
             await Client.StartAsync();
 
             Client.Ready += LoggedIn;

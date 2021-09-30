@@ -26,6 +26,8 @@ namespace StarcoreDiscordBot
         [DataMember]
         public ulong LogChannel = 0;
 
+        [DataMember]
+        public string Token = "";
 
         [DataMember]
         public ulong AdminRole = 0;
