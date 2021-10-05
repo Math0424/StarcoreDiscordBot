@@ -67,7 +67,7 @@ namespace StarcoreDiscordBot.SlashCommands
                     .WithType(ApplicationCommandOptionType.SubCommand))
                 .AddOption(new SlashCommandOptionBuilder()
                     .WithName("info")
-                    .WithDescription("Showcase your team")
+                    .WithDescription("Get information on your team")
                     .WithType(ApplicationCommandOptionType.SubCommand));
 
             CommandManager.RegisterSlashCommand(teamCmd, Callback);

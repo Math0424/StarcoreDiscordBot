@@ -291,7 +291,7 @@ namespace StarcoreDiscordBot.SlashCommands
                     icon.BackgroundColor = MagickColors.None;
                     icon.Distort(DistortMethod.Polar, 0);
                     teamIcon.Composite(icon, Gravity.Southwest, 0, offset, CompositeOperator.Over);
-                    offset += 85;
+                    offset -= 85;
                 }
             }
 
