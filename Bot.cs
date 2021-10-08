@@ -64,7 +64,6 @@ namespace StarcoreDiscordBot
             DiscordSocketConfig config = new DiscordSocketConfig();
             config.GatewayIntents = GatewayIntents.GuildMembers | GatewayIntents.AllUnprivileged;
             config.AlwaysDownloadUsers = true;
-            config.AlwaysAcknowledgeInteractions = false;
 
             Client = new DiscordSocketClient(config);
             Client.Log += Utils.Log;

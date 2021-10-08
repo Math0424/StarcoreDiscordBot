@@ -55,7 +55,8 @@ namespace StarcoreDiscordBot.Networking.Packets
             var returnedPlayers = new Pair<ulong, string>[players.Count];
             for (int i = 0; i < players.Count; i++)
             {
-                returnedPlayers[i] = new Pair<ulong, string>(players[i], Data.GetPlayer(players[i]).UserName());
+                var player = Data.GetPlayer(players[i]);
+                returnedPlayers[i] = new Pair<ulong, string>(player.SteamID, player.UserName());
             }
             return returnedPlayers;
         }

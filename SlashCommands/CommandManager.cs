@@ -98,7 +98,7 @@ namespace StarcoreDiscordBot.SlashCommands
                         }
                         else
                         {
-                            await interaction.AcknowledgeAsync();
+                            await interaction.DeferLoadingAsync(true);
                         }
                     }
                     break;

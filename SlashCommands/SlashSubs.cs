@@ -138,7 +138,7 @@ namespace StarcoreDiscordBot.SlashCommands
 
         private static async Task<bool> BtnJoinTeamCallback(SocketMessageComponent inter, WCTeam team)
         {
-            await inter.AcknowledgeAsync();
+            await inter.DeferLoadingAsync(true);
             await inter.Message.ModifyAsync((e) =>
             {
                 e.Components = new ComponentBuilder()

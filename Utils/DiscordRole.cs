@@ -81,7 +81,7 @@ namespace StarcoreDiscordBot
         public async Task RemoveMember(ulong id)
         {
             var role = await GetRoleAsync();
-            (Utils.GetUser(id) as IGuildUser)?.RemoveRoleAsync(role.Id);
+            Bot.Instance.MainServer.GetUser(id)?.RemoveRoleAsync(role.Id);
         }
 
         public async Task RemoveMembers(List<ulong> members)
@@ -89,14 +89,14 @@ namespace StarcoreDiscordBot
             var role = await GetRoleAsync();
             foreach(var i in members)
             {
-                (Utils.GetUser(i) as IGuildUser)?.RemoveRoleAsync(role.Id);
+                Bot.Instance.MainServer.GetUser(i)?.RemoveRoleAsync(role.Id);
             }
         }
 
         public async Task AddMember(ulong id)
         {
             var role = await GetRoleAsync();
-            (Utils.GetUser(id) as IGuildUser)?.AddRoleAsync(role.Id);
+            Bot.Instance.MainServer.GetUser(id)?.AddRoleAsync(role.Id);
         }
 
         public void DeleteRole()

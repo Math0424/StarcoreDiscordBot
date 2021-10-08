@@ -53,7 +53,7 @@ namespace StarcoreDiscordBot
             info = default;
             return false;
         }
-
+         
         public bool CanAddBlueprint(TournamentEntry entry, int blueprintId, out BlueprintInfo info, out string error)
         {
             if (GetBlueprintInfo(blueprintId, out _, out BlueprintInfo data))
@@ -69,29 +69,29 @@ namespace StarcoreDiscordBot
                     {
                         error = "Small grid not allowed!";
                     }
-                    else if (MaxShipBlocks != -1 && MaxShipBlocks <= info.BlockCount)
+                    else if (MaxShipBlocks != -1 && MaxShipBlocks < info.BlockCount)
                     {
-                        error = $"Over ship block limit of {MaxShipBlocks} (currently {info.BlockCount})!";
+                        error = $"Over ship block limit of {MaxShipBlocks} (Ship has {info.BlockCount} blocks)!";
                     }
-                    else if (MaxShipBattlePoints != -1 && MaxShipBattlePoints <= info.BattlePoints)
+                    else if (MinShipBlocks != -1 && MinShipBlocks > info.BlockCount)
                     {
-                        error = $"Over ship battle point limit of {MaxShipBattlePoints} (currently {info.BattlePoints})!";
+                        error = $"Under ship block limit of {MinShipBlocks} (Ship has {info.BlockCount} blocks)!";
                     }
-                    else if (MinShipBattlePoints != -1 && MinShipBattlePoints <= info.BattlePoints)
+                    else if (MaxShipBattlePoints != -1 && MaxShipBattlePoints < info.BattlePoints)
                     {
-                        error = $"Under ship battle point limit of {MaxShipBattlePoints} (currently {info.BattlePoints})!";
+                        error = $"Over ship battle point limit of {MaxShipBattlePoints} (Ship has {info.BattlePoints} BP)!";
                     }
-                    else if (MinShipBattlePoints != -1 && MinShipBattlePoints <= info.BattlePoints)
+                    else if (MinShipBattlePoints != -1 && MinShipBattlePoints > info.BattlePoints)
                     {
-                        error = $"Under ship battle point limit of {MaxShipBattlePoints} (currently {info.BattlePoints})!";
+                        error = $"Under ship battle point limit of {MinShipBattlePoints} (Ship has {info.BattlePoints} BP)!";
                     }
-                    else if (MaxTeamBattlePoints != -1 && MaxTeamBattlePoints <= entry.TeamBattlePoints + info.BattlePoints)
+                    else if (MaxTeamBattlePoints != -1 && MaxTeamBattlePoints < entry.TeamBattlePoints + info.BattlePoints)
                     {
-                        error = $"Over team battle point limit of {MaxTeamBattlePoints} (currently {entry.TeamBattlePoints})!";
+                        error = $"Adding ship would max out team BattlePoints ({MaxTeamBattlePoints}) this Ship has {info.BattlePoints} BP and team has {entry.TeamBattlePoints} BP in use!";
                     }
-                    else if (MaxTeamBlocks != -1 && MaxTeamBlocks <= entry.TeamBlocks + info.BattlePoints)
+                    else if (MaxTeamBlocks != -1 && MaxTeamBlocks < entry.TeamBlocks + info.BlockCount)
                     {
-                        error = $"Over team ship block limit of {MaxTeamBlocks} (currently {entry.TeamBlocks})!";
+                        error = $"Adding ship would max out team Block limit ({MaxTeamBlocks}) this Ship has {info.BlockCount} Blocks and team has {entry.TeamBlocks} Blocks in use!!";
                     }
                     else
                     {
