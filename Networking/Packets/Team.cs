@@ -44,7 +44,7 @@ namespace StarcoreDiscordBot.Networking.Packets
             for (int i = 0; i < ships.Count; i++)
             {
                 var bp = Data.GetBlueprint(ships[i]);
-                returnShips[i] = new Pair<ulong, string>(bp.Requester, bp.GetSBCPath());
+                returnShips[i] = new Pair<ulong, string>(Data.GetPlayer(bp.Requester).SteamID, bp.GetSBCPath());
             }
             return returnShips;
         }

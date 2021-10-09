@@ -102,25 +102,20 @@ namespace StarcoreDiscordBot.SlashCommands
                     setIconDict.Add(arg.User.Id, arg.Channel.Id);
                     break;
                 case "icon-2-lcd":
-                    if (arg.Channel is IPrivateChannel)
+                    int value = firstName.Options != null ? (int)firstName.Options.First().Value : 1;
+                    await arg.RespondAsync($"Rendering {(value == 1 ? "5bit" : "3bit")} image, this make take a while...");
+
+                    using (var icon = t.GetIcon())
                     {
-                        int value = firstName.Options != null ? (int)firstName.Options.First().Value : 1;
-                        await arg.RespondAsync($"Rendering {(value == 1 ? "5bit" : "3bit")} image, this make take a while...");
+                        byte[] image = ConvertImage(icon, value);
+                        using MemoryStream stream = new MemoryStream(image);
+                        using MemoryStream imageStream = new MemoryStream();
+                        icon.Write(imageStream);
+                        imageStream.Position = 0;
 
-                        using (var icon = t.GetIcon())
-                        {
-                            byte[] image = ConvertImage(icon, value);
-                            using MemoryStream stream = new MemoryStream(image);
-                            using MemoryStream imageStream = new MemoryStream();
-                            icon.Write(imageStream);
-                            imageStream.Position = 0;
-
-                            await arg.Channel.SendFileAsync(imageStream, "outputImage.png", "Output image render");
-                            await arg.Channel.SendFileAsync(stream, "outputFile.txt", "Text file");
-                        }
+                        await arg.Channel.SendFileAsync(imageStream, "outputImage.png", $"Output image render requested by <@{arg.User.Id}>");
+                        await arg.Channel.SendFileAsync(stream, "outputFile.txt", "Text file");
                     }
-                    else
-                        await arg.RespondAsync("Please DM the bot this command", ephemeral: true);
                     break;
                 case "info":
                     string members = "";

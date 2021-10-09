@@ -81,6 +81,11 @@ namespace StarcoreDiscordBot.SlashCommands
                     .WithDescription("Information about tournament")
                     .WithType(ApplicationCommandOptionType.SubCommand))
                 .AddOption(new SlashCommandOptionBuilder()
+                    .WithName("enable-whitelist")
+                    .WithDescription("Enabled or disable whitelist")
+                    .WithType(ApplicationCommandOptionType.SubCommand)
+                    .AddOption("enabled", ApplicationCommandOptionType.Boolean, "Enable/Disable"))
+                .AddOption(new SlashCommandOptionBuilder()
                     .WithName("fight")
                     .WithDescription("Fight 2 teams on a server")
                     .WithType(ApplicationCommandOptionType.SubCommand)
@@ -382,6 +387,16 @@ namespace StarcoreDiscordBot.SlashCommands
                     else
                         await arg.RespondAsync("Blueprint not found!...");
                     break;
+
+                case "enable-whitelist":
+                    bool enabled = (bool)firstName.Options.Get(0).Value;
+                    if (Pipelines.SendData(new PacketWhitelist(enabled), context.ServerID))
+                    {
+                        await arg.RespondAsync($"{(enabled ? "Enabled" : "Disabled")} Server Whitelist!");
+                    }
+                    else
+                        await arg.RespondAsync("Server is offline!");
+                    break;
                 case "lineup":
                     string value = (string)firstName.Options.Get(0).Value;
                     string cannotFind = string.Empty;
@@ -541,7 +556,7 @@ steam://connect/{IP}
             {
                 sendImage.Write(stream);
                 stream.Position = 0;
-                await context.GetGeneral().SendFileAsync(stream, "TeamMatch.png", "", embed: statBuilder.Build());
+                //await context.GetGeneral().SendFileAsync(stream, "TeamMatch.png", "", embed: statBuilder.Build());
             }
 
         }

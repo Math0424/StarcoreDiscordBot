@@ -184,20 +184,17 @@ namespace StarcoreDiscordBot.SlashCommands
                                     {
                                         tourn.Save();
                                         await arg.RespondAsync($"Removed blueprint '{blueprintId}'", ephemeral: true);
+                                        return;
                                     }
-                                }
-                                await arg.RespondAsync($"Blueprint not found", ephemeral: true);
-                                return;
+                                } 
+                                else
+                                    await arg.RespondAsync($"Blueprint not found", ephemeral: true);
                             }
                             else
-                            {
                                 await arg.RespondAsync($"Tournament blueprints locked!", ephemeral: true);
-                            }
                         }
                         else
-                        {
-                            await arg.RespondAsync("you are not in this Tournament", ephemeral: true);
-                        }
+                            await arg.RespondAsync("You are not in this Tournament", ephemeral: true);
                     }
                     break;
                 case "listblueprint":
